@@ -1,8 +1,10 @@
 from db_table import db_table
+import pprint
+import sys
 
 # get search parameters
-cols = input("Please enter column:").split(",")
-vals = input("Please enter value:").split(",")
+cols = sys.argv[1].split(",")
+vals = sys.argv[2].split(",")
 
 search_params = {}
 
@@ -41,4 +43,5 @@ for i in range(len(results)):
 
 # print out the final results
 for result in results:
-    print(result)
+    del result["id"]
+    pprint.pprint(result)

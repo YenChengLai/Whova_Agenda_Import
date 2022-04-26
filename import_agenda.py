@@ -1,7 +1,8 @@
 from db_table import db_table
 import xlrd
+import sys
 
-file_name = "agenda.xls"
+file_name = sys.argv[1]
 agenda = xlrd.open_workbook(file_name).sheet_by_name("Agenda")
 schema = [x.replace("*", "").replace("\n", "") for x in agenda.row_values(14)]
 
