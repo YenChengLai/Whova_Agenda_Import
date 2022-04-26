@@ -121,7 +121,6 @@ class db_table:
         # The reason is that sqlite does not provide substitution mechanism for columns parameters
         # In the context of this project, this is fine (no risk of user malicious input)
         cursor = self.db_conn.cursor()
-        print("INSERT INTO %s (%s) VALUES (%s)" % (self.name, columns_query, values_query))
         cursor.execute("INSERT INTO %s (%s) VALUES (%s)" % (self.name, columns_query, values_query))
         cursor.close()
         self.db_conn.commit()

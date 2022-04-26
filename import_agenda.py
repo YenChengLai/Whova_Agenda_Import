@@ -7,8 +7,6 @@ file_name = "agenda.xls"
 agenda = xlrd.open_workbook(file_name).sheet_by_name("Agenda")
 schema = [x.replace("*", "").replace("\n", "") for x in agenda.row_values(14)]
 
-print(schema)
-
 users = db_table("agenda", {
     "id": "integer PRIMARY KEY",
     "date": "string NOT NULL",
@@ -22,9 +20,6 @@ users = db_table("agenda", {
 id = 1
 for rx in xrange(15, agenda.nrows):
     content = [c for c in agenda.row_values(rx)]
-    print(content)
-    if "'" in content[3]:
-        content[3] = content[3]
 
     users.insert({
         "id": id,
@@ -35,6 +30,7 @@ for rx in xrange(15, agenda.nrows):
         "location": content[4],
         "description": content[5]
     })
+
     id += 1
 
 users.close()
