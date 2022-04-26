@@ -5,22 +5,8 @@ file_name = "agenda.xls"
 agenda = xlrd.open_workbook(file_name).sheet_by_name("Agenda")
 schema = [x.replace("*", "").replace("\n", "") for x in agenda.row_values(14)]
 
-agenda_Table = db_table("agenda", {
-    "id": "integer PRIMARY KEY",
-    "date": "string NOT NULL",
-    "time_start": "string NOT NULL",
-    "time_end": "string NOT NULL",
-    "title": "string NOT NULL",
-    "location": "string",
-    "description": "string",
-    "speaker": "string",
-    "parent_id": "integer"
-})
-
-speaker_table = db_table("speaker", {
-    "agenda_id": "integer NOT NULL",
-    "name": "string NOT NULL"
-})
+agenda_Table = db_table("agenda")
+speaker_table = db_table("speaker")
 
 id = 1
 parent_id = 1

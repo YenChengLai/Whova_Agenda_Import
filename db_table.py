@@ -25,16 +25,31 @@ class db_table:
     #
     # Example: table("users", { "id": "integer PRIMARY KEY", "name": "text" })
     #
-    def __init__(self, name, schema):
+    def __init__(self, name):
+
+        agenda_schema = {
+            "id": "integer PRIMARY KEY",
+            "date": "string NOT NULL",
+            "time_start": "string NOT NULL",
+            "time_end": "string NOT NULL",
+            "title": "string NOT NULL",
+            "location": "string",
+            "description": "string",
+            "parent_id": "integer"
+        }
+
+        speaker_schema = {
+            "agenda_id": "integer NOT NULL",
+            "speaker": "string NOT NULL"
+        }
+
         # error handling
         if not name:
             raise RuntimeError("invalid table name")
-        if not schema:
-            raise RuntimeError("invalid database schema")
 
         # init fields and initiate database connection
         self.name = name
-        self.schema = schema
+        self.schema = agenda_schema if name == "agenda" else speaker_schema
         self.db_conn = sqlite3.connect(self.DB_NAME)
 
         # ensure the table is created
@@ -81,7 +96,7 @@ class db_table:
         query = "SELECT %s FROM %s" % (columns_query_string, self.name)
         # build where query string
         if where:
-            where_query_string = ["%s = '%s'" % (k, v) for k, v in where.iteritems()]
+            where_query_string = ["%s = '%s'" % (k, v) for k, v in where.items()]
             query += " WHERE " + ' AND '.join(where_query_string)
 
         result = []
