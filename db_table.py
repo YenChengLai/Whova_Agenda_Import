@@ -36,12 +36,23 @@ class db_table:
             "location": "string",
             "description": "string",
             "speaker": "string",
-            "parent_id": "integer"
         }
 
         speaker_schema = {
             "agenda_id": "integer NOT NULL",
             "speaker": "string NOT NULL"
+        }
+
+        subsession_schema = {
+            "id": "integer PRIMARY KEY",
+            "parent_id": "integer NOT NULL",
+            "date": "string NOT NULL",
+            "time_start": "string NOT NULL",
+            "time_end": "string NOT NULL",
+            "title": "string NOT NULL",
+            "location": "string",
+            "description": "string",
+            "speaker": "string",
         }
 
         # error handling
@@ -50,8 +61,14 @@ class db_table:
 
         # init fields and initiate database connection
         self.name = name
-        self.schema = agenda_schema if name == "agenda" else speaker_schema
         self.db_conn = sqlite3.connect(self.DB_NAME)
+
+        if name == "agenda":
+            self.schema = agenda_schema
+        elif name == "speaker":
+            self.schema = speaker_schema
+        else:
+            self.schema = subsession_schema
 
         # ensure the table is created
         self.create_table()
