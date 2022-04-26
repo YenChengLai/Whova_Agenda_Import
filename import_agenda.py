@@ -26,6 +26,7 @@ for rx in range(15, agenda.nrows):
         "title": content[4],
         "location": content[5],
         "description": content[6],
+        "speaker": content[7],
         "parent_id": parent_id if session == "Sub" else None
     })
 
@@ -35,12 +36,12 @@ for rx in range(15, agenda.nrows):
         for speaker in speakers:
             speaker_table.insert({
                 "agenda_id": id,
-                "name": speaker.strip()
+                "speaker": speaker.strip()
             })
     elif len(content[7]) > 0:
         speaker_table.insert({
             "agenda_id": id,
-            "name": content[7]
+            "speaker": content[7]
         })
 
     id += 1

@@ -35,6 +35,7 @@ class db_table:
             "title": "string NOT NULL",
             "location": "string",
             "description": "string",
+            "speaker": "string",
             "parent_id": "integer"
         }
 
