@@ -1,0 +1,6 @@
+*.pyc
+*.db
+# skip IDE compile settings
+.idea/
+# .DS_Store file
+.DS_Store
